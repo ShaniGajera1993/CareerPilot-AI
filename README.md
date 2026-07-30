@@ -130,7 +130,7 @@ Ask questions such as:
 
 ## Backend
 
-- Laravel 12
+- Laravel 13
 - PHP 8.4
 - Laravel Sanctum
 - Laravel Queues
