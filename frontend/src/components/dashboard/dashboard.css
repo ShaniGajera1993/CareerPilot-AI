@@ -1,0 +1,735 @@
+.dashboard-shell {
+  min-height: 100vh;
+  background: #f7f8fb;
+  color: #182033;
+}
+.dashboard-sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: 245px;
+  background: #fff;
+  border-right: 1px solid #e7e9f0;
+  padding: 27px 18px;
+  display: flex;
+  flex-direction: column;
+  z-index: 40;
+}
+.dashboard-brand {
+  display: flex;
+  align-items: center;
+  color: #182033;
+  text-decoration: none;
+  font: 800 19px "Manrope";
+  padding: 0 10px 35px;
+}
+.dashboard-brand > span {
+  width: 34px;
+  height: 34px;
+  background: #6856e8;
+  color: #fff;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  margin-right: 9px;
+}
+.dashboard-brand svg {
+  width: 18px;
+}
+.dashboard-brand em {
+  font-style: normal;
+  color: #6856e8;
+}
+.dashboard-sidebar > p {
+  font-size: 9px;
+  letter-spacing: 1.4px;
+  color: #aaaeba;
+  font-weight: 800;
+  margin: 0 12px 9px;
+}
+.dashboard-sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.dashboard-sidebar nav button {
+  height: 42px;
+  border: 0;
+  background: none;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+  color: #70798a;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: left;
+}
+.dashboard-sidebar nav button:hover,
+.dashboard-sidebar nav button.active {
+  background: #f0edff;
+  color: #604fe0;
+}
+.dashboard-sidebar nav svg {
+  width: 18px;
+}
+.dashboard-sidebar nav i {
+  margin-left: auto;
+  font-style: normal;
+  font-size: 9px;
+  background: #e9e5fc;
+  padding: 3px 7px;
+  border-radius: 10px;
+}
+.dashboard-upgrade {
+  margin-top: auto;
+  border: 1px solid #e5e0ff;
+  background: #f5f2ff;
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.dashboard-upgrade > svg {
+  width: 28px;
+  height: 28px;
+  padding: 6px;
+  background: #ded7ff;
+  color: #624fe0;
+  border-radius: 8px;
+}
+.dashboard-upgrade strong {
+  font-size: 11px;
+}
+.dashboard-upgrade span {
+  font-size: 9px;
+  color: #818695;
+  line-height: 1.5;
+}
+.dashboard-upgrade button {
+  border: 0;
+  background: none;
+  color: #604ee1;
+  padding: 0;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+}
+.dashboard-close,
+.dashboard-scrim {
+  display: none;
+}
+.dashboard-main {
+  margin-left: 245px;
+}
+.dashboard-header {
+  height: 74px;
+  background: #fff;
+  border-bottom: 1px solid #e7e9f0;
+  padding: 0 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dashboard-search {
+  display: flex;
+  align-items: center;
+  width: 320px;
+  color: #a1a7b3;
+}
+.dashboard-search svg {
+  width: 17px;
+}
+.dashboard-search input {
+  border: 0;
+  outline: 0;
+  padding: 0 9px;
+  width: 100%;
+  font-size: 11px;
+}
+.dashboard-search kbd {
+  font-size: 8px;
+  border: 1px solid #e1e3e9;
+  padding: 3px 6px;
+  border-radius: 5px;
+}
+.dashboard-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.notification,
+.logout,
+.dashboard-menu {
+  border: 0;
+  background: none;
+  color: #7b8392;
+  padding: 6px;
+}
+.notification {
+  position: relative;
+}
+.notification svg,
+.logout svg {
+  width: 18px;
+}
+.notification i {
+  width: 6px;
+  height: 6px;
+  background: #ed6969;
+  border-radius: 50%;
+  position: absolute;
+  right: 5px;
+  top: 4px;
+}
+.dashboard-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #ded9ff;
+  color: #5949ca;
+  font-size: 9px;
+  font-weight: 800;
+}
+.dashboard-user > div {
+  display: flex;
+  flex-direction: column;
+  min-width: 120px;
+}
+.dashboard-user strong {
+  font-size: 10px;
+}
+.dashboard-user > div span {
+  color: #9aa0ad;
+  font-size: 8px;
+  margin-top: 2px;
+}
+.dashboard-menu {
+  display: none;
+}
+.dashboard-content {
+  max-width: 1300px;
+  margin: auto;
+  padding: 30px 34px;
+}
+.dashboard-welcome {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 25px;
+}
+.dashboard-welcome > div > span {
+  font-size: 8px;
+  letter-spacing: 1.3px;
+  color: #8f96a4;
+  font-weight: 800;
+}
+.dashboard-welcome h1 {
+  font: 700 25px "Manrope";
+  letter-spacing: -0.7px;
+  margin: 6px 0 3px;
+}
+.dashboard-welcome p {
+  font-size: 11px;
+  color: #8a92a1;
+  margin: 0;
+}
+.dashboard-welcome > button {
+  border: 0;
+  background: #6856e8;
+  color: #fff;
+  border-radius: 9px;
+  padding: 11px 15px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 700;
+}
+.dashboard-welcome > button svg {
+  width: 16px;
+}
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: 1.05fr 1.2fr 0.82fr;
+  gap: 16px;
+}
+.dash-card {
+  background: #fff;
+  border: 1px solid #e6e8ef;
+  border-radius: 13px;
+  padding: 19px;
+}
+.dash-card > header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dash-card > header > span {
+  width: 29px;
+  height: 29px;
+  border-radius: 8px;
+  background: #efedff;
+  color: #6654e5;
+  display: grid;
+  place-items: center;
+}
+.dash-card > header svg {
+  width: 16px;
+}
+.dash-card > header strong {
+  font-size: 11px;
+}
+.dash-card > header > svg {
+  margin-left: auto;
+  color: #a5abb5;
+}
+.health-body {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  padding: 20px 0 15px;
+}
+.dash-score {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle, #fff 60%, transparent 61%),
+    conic-gradient(#6957e8 82%, #e9e7f3 0);
+}
+.dash-score strong {
+  font: 800 26px "Manrope";
+}
+.dash-score small {
+  font-size: 8px;
+  color: #a2a7b1;
+}
+.health-body > div:last-child {
+  flex: 1;
+}
+.health-body em {
+  font-style: normal;
+  font-size: 8px;
+  font-weight: 700;
+  color: #0d8c69;
+  background: #e8f8f2;
+  padding: 4px 6px;
+  border-radius: 5px;
+}
+.health-body p {
+  font-size: 9px;
+  color: #818897;
+  line-height: 1.5;
+}
+.health-body button,
+.skills-panel > button,
+.applications-panel header button {
+  border: 0;
+  background: none;
+  color: #6654e4;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.health-body button svg,
+.skills-panel > button svg,
+.applications-panel header button svg {
+  width: 12px;
+}
+.health-card > footer {
+  border-top: 1px solid #eeeef2;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 8px;
+  color: #9da2ad;
+}
+.health-card > footer span {
+  color: #168d6b;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.health-card > footer svg {
+  width: 11px;
+}
+.match-card > header > span {
+  color: #168c6a;
+  background: #e8f8f2;
+}
+.match-card > header > em {
+  margin-left: auto;
+  color: #6957e8;
+  background: #efedff;
+  padding: 4px 7px;
+  border-radius: 10px;
+  font-size: 7px;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.match-card > header > em svg {
+  width: 10px;
+}
+.match-card > p {
+  font-size: 9px;
+  color: #858c99;
+}
+.match-card textarea {
+  width: 100%;
+  height: 91px;
+  resize: none;
+  border: 1px solid #e1e3e9;
+  border-radius: 8px;
+  padding: 9px;
+  outline: none;
+  font-size: 9px;
+}
+.match-card > footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+.match-card > footer small {
+  color: #a6aab4;
+  font-size: 8px;
+}
+.match-card > footer button {
+  border: 0;
+  background: #6856e8;
+  color: #fff;
+  border-radius: 7px;
+  padding: 7px 10px;
+  font-size: 8px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.match-card > footer button:disabled {
+  background: #d8d5e7;
+}
+.match-card > footer svg {
+  width: 11px;
+}
+.coach-dash-card {
+  background: linear-gradient(145deg, #302777, #4c40a0);
+  color: #fff;
+  border-radius: 13px;
+  padding: 19px;
+}
+.coach-dash-card header {
+  display: flex;
+  align-items: center;
+}
+.coach-dash-card header > span {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  background: #ffffff16;
+  margin-right: 9px;
+}
+.coach-dash-card header svg {
+  width: 18px;
+}
+.coach-dash-card header div {
+  display: flex;
+  flex-direction: column;
+}
+.coach-dash-card header strong {
+  font-size: 10px;
+}
+.coach-dash-card header small {
+  font-size: 7px;
+  color: #c8c3e3;
+  margin-top: 3px;
+}
+.coach-dash-card header i {
+  width: 6px;
+  height: 6px;
+  background: #5bd6ad;
+  border-radius: 50%;
+  margin-left: auto;
+}
+.coach-dash-card > p {
+  font: 600 11px/1.55 "Manrope";
+  color: #e0ddef;
+  margin: 23px 0;
+}
+.coach-dash-card > button {
+  width: 100%;
+  border: 1px solid #ffffff24;
+  background: #ffffff10;
+  color: #fff;
+  border-radius: 8px;
+  padding: 9px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 8px;
+  font-weight: 700;
+}
+.coach-dash-card > button svg {
+  width: 14px;
+}
+.coach-dash-card > button svg:last-child {
+  margin-left: auto;
+}
+.dashboard-lower {
+  display: grid;
+  grid-template-columns: 1.5fr 0.82fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+.applications-panel > header,
+.skills-panel > header {
+  justify-content: space-between;
+}
+.applications-panel header div h2,
+.skills-panel header div h2 {
+  font: 700 12px "Manrope";
+  margin: 0 0 3px;
+}
+.applications-panel header div p,
+.skills-panel header div p {
+  font-size: 8px;
+  color: #989eaa;
+  margin: 0;
+}
+.application-item {
+  display: grid;
+  grid-template-columns: 35px 1fr 70px 65px;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid #eff0f3;
+  margin-top: 7px;
+}
+.company {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  background: #26334a;
+}
+.company.v {
+  background: #6756d5;
+}
+.company.a {
+  background: #dd8068;
+}
+.application-item > div {
+  display: flex;
+  flex-direction: column;
+}
+.application-item strong {
+  font-size: 9px;
+}
+.application-item > div span,
+.application-item > small {
+  color: #9299a6;
+  font-size: 8px;
+  margin-top: 2px;
+}
+.application-item > small {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.application-item > small svg {
+  width: 10px;
+}
+.application-item > em {
+  font-size: 7px;
+  font-style: normal;
+  text-align: center;
+  padding: 4px;
+  border-radius: 9px;
+  background: #f0edff;
+  color: #6654dd;
+}
+.application-item > em.applied {
+  background: #eaf5fc;
+  color: #3279ad;
+}
+.application-item > em.wishlist {
+  background: #f0f1f3;
+  color: #7d8490;
+}
+.dash-skill {
+  margin: 19px 0;
+}
+.dash-skill > span {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: #6f7787;
+}
+.dash-skill i {
+  display: block;
+  height: 6px;
+  background: #eff0f3;
+  border-radius: 6px;
+  margin-top: 7px;
+  overflow: hidden;
+}
+.dash-skill i em {
+  display: block;
+  height: 100%;
+  background: #6957e8;
+  border-radius: 6px;
+}
+.dash-skill:nth-of-type(3) i em {
+  background: #14a079;
+}
+.dash-skill:nth-of-type(4) i em {
+  background: #eda63e;
+}
+.workspace-placeholder {
+  min-height: 500px;
+  background: #fff;
+  border: 1px solid #e7e8ef;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.workspace-placeholder > svg {
+  width: 50px;
+  height: 50px;
+  color: #6856e8;
+  background: #eeebff;
+  padding: 12px;
+  border-radius: 14px;
+}
+.workspace-placeholder h2 {
+  font: 700 22px "Manrope";
+  margin: 17px 0 5px;
+}
+.workspace-placeholder p {
+  font-size: 11px;
+  color: #898f9b;
+}
+.workspace-placeholder button {
+  border: 0;
+  background: #6856e8;
+  color: #fff;
+  border-radius: 8px;
+  padding: 9px 13px;
+  font-size: 9px;
+  font-weight: 700;
+}
+.dashboard-toast {
+  position: fixed;
+  right: 25px;
+  top: 87px;
+  z-index: 80;
+  background: #20283a;
+  color: #fff;
+  padding: 11px 15px;
+  border-radius: 9px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  box-shadow: 0 12px 30px #1720332e;
+}
+.dashboard-toast svg {
+  width: 15px;
+  color: #57d3aa;
+}
+@media (max-width: 1050px) {
+  .dashboard-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+  .coach-dash-card {
+    grid-column: 1/-1;
+  }
+  .dashboard-lower {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 760px) {
+  .dashboard-sidebar {
+    transform: translateX(-102%);
+    transition: 0.25s;
+  }
+  .dashboard-sidebar.open {
+    transform: none;
+  }
+  .dashboard-close {
+    display: block;
+    position: absolute;
+    top: 24px;
+    right: 14px;
+    border: 0;
+    background: none;
+    color: #858c99;
+  }
+  .dashboard-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: #20263b70;
+    border: 0;
+    z-index: 35;
+  }
+  .dashboard-main {
+    margin-left: 0;
+  }
+  .dashboard-menu {
+    display: block;
+  }
+  .dashboard-header {
+    padding: 0 15px;
+  }
+  .dashboard-search {
+    display: none;
+  }
+  .dashboard-user > div {
+    display: none;
+  }
+  .dashboard-content {
+    padding: 23px 15px;
+  }
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+  .coach-dash-card {
+    grid-column: auto;
+  }
+  .dashboard-welcome h1 {
+    font-size: 20px;
+  }
+  .dashboard-welcome > button {
+    font-size: 0;
+    padding: 10px;
+  }
+  .application-item {
+    grid-template-columns: 35px 1fr 60px;
+  }
+  .application-item > small {
+    display: none;
+  }
+}
