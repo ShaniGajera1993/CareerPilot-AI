@@ -1,12 +1,23 @@
 import { createContext, useContext } from "react";
 
-export type AuthUser = { name: string; email: string };
-export type RegisterData = AuthUser & { password: string };
+export type AuthUser = {
+  id: number;
+  name: string;
+  email: string;
+  created_at: string;
+};
+export type RegisterData = {
+  name: string;
+  email: string;
+  password: string;
+};
+export type AuthStatus = "loading" | "ready" | "error";
 export type AuthContextValue = {
   user: AuthUser | null;
-  login: (email: string, password: string) => Promise<void>;
+  status: AuthStatus;
+  login: (email: string, password: string, remember: boolean) => Promise<void>;
   register: (data: RegisterData) => Promise<void>;
-  logout: () => void;
+  logout: () => Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContextValue | null>(null);

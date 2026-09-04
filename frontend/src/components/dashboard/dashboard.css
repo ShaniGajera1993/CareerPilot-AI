@@ -167,6 +167,18 @@
   color: #7b8392;
   padding: 6px;
 }
+.logout:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+.logout .spin {
+  animation: dashboard-spin 0.8s linear infinite;
+}
+@keyframes dashboard-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 .notification {
   position: relative;
 }
@@ -182,6 +194,11 @@
   position: absolute;
   right: 5px;
   top: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .logout .spin {
+    animation-duration: 1.6s;
+  }
 }
 .dashboard-avatar {
   width: 34px;

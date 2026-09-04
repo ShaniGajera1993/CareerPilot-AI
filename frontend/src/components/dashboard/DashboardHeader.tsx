@@ -1,9 +1,11 @@
-import { Bell, LogOut, Menu, Search } from "lucide-react";
+import { useState } from "react";
+import { Bell, LoaderCircle, LogOut, Menu, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 
 export function DashboardHeader({ onMenu }: { onMenu: () => void }) {
   const { user, logout } = useAuth();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const navigate = useNavigate();
   const initials =
     user?.name
@@ -12,6 +14,16 @@ export function DashboardHeader({ onMenu }: { onMenu: () => void }) {
       .slice(0, 2)
       .join("")
       .toUpperCase() || "CP";
+
+  async function handleLogout() {
+    if (isLoggingOut) {
+      return;
+    }
+
+    setIsLoggingOut(true);
+    await logout();
+    navigate("/", { replace: true });
+  }
 
   return (
     <header className="dashboard-header">
@@ -35,13 +47,13 @@ export function DashboardHeader({ onMenu }: { onMenu: () => void }) {
         </div>
         <button
           className="logout"
-          onClick={() => {
-            logout();
-            navigate("/");
-          }}
+          onClick={handleLogout}
+          disabled={isLoggingOut}
+          aria-label={isLoggingOut ? "Logging out" : "Log out"}
+          aria-busy={isLoggingOut}
           title="Log out"
         >
-          <LogOut />
+          {isLoggingOut ? <LoaderCircle className="spin" /> : <LogOut />}
         </button>
       </div>
     </header>
