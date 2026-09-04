@@ -39,15 +39,22 @@ export function DashboardSidebar({
           </span>
           CareerPilot<em>AI</em>
         </Link>
-        <button className="dashboard-close" onClick={onClose}>
+        <button
+          type="button"
+          className="dashboard-close"
+          onClick={onClose}
+          aria-label="Close menu"
+        >
           <X />
         </button>
         <p>WORKSPACE</p>
         <nav>
           {items.map(({ label, icon: Icon }) => (
             <button
+              type="button"
               className={active === label ? "active" : ""}
               key={label}
+              aria-pressed={active === label}
               onClick={() => {
                 onSelect(label);
                 onClose();
