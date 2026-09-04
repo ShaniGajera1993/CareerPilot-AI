@@ -1,51 +1,113 @@
-import { useMemo, useState, type ReactNode } from "react";
-import { AuthContext, type AuthContextValue, type AuthUser } from "./auth";
-const STORAGE_KEY = "careerpilot_user";
+import axios from "axios";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
+import api from "../services/api";
+import {
+  clearAuthToken,
+  getAuthToken,
+  isAuthTokenStorageEvent,
+  SESSION_EXPIRED_EVENT,
+  storeAuthToken,
+} from "../services/authStorage";
+import {
+  AuthContext,
+  type AuthContextValue,
+  type AuthStatus,
+  type AuthUser,
+} from "./auth";
 
-function storedUser(): AuthUser | null {
-  try {
-    return JSON.parse(
-      localStorage.getItem(STORAGE_KEY) ?? "null",
-    ) as AuthUser | null;
-  } catch {
-    return null;
-  }
-}
+type AuthResponse = { user: AuthUser; token: string };
+type CurrentUserResponse = { data: AuthUser };
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<AuthUser | null>(storedUser);
+  const [user, setUser] = useState<AuthUser | null>(null);
+  const [status, setStatus] = useState<AuthStatus>(
+    getAuthToken() ? "loading" : "ready",
+  );
+
+  useEffect(() => {
+    const token = getAuthToken();
+
+    if (!token) {
+      return;
+    }
+
+    const controller = new AbortController();
+
+    api
+      .get<CurrentUserResponse>("/auth/user", { signal: controller.signal })
+      .then((response) => {
+        setUser(response.data.data);
+        setStatus("ready");
+      })
+      .catch((error: unknown) => {
+        if (!axios.isCancel(error)) {
+          setStatus(
+            axios.isAxiosError(error) && error.response?.status === 401
+              ? "ready"
+              : "error",
+          );
+        }
+      });
+
+    return () => controller.abort();
+  }, []);
+
+  useEffect(() => {
+    const clearSession = () => {
+      setUser(null);
+      setStatus("ready");
+    };
+    const handleStorage = (event: StorageEvent) => {
+      if (isAuthTokenStorageEvent(event) && !event.newValue) {
+        clearAuthToken();
+        clearSession();
+      }
+    };
+
+    window.addEventListener(SESSION_EXPIRED_EVENT, clearSession);
+    window.addEventListener("storage", handleStorage);
+
+    return () => {
+      window.removeEventListener(SESSION_EXPIRED_EVENT, clearSession);
+      window.removeEventListener("storage", handleStorage);
+    };
+  }, []);
 
   const value = useMemo<AuthContextValue>(
     () => ({
       user,
-      login: async (email, password) => {
-        if (!email || password.length < 6)
-          throw new Error("Enter a valid email and password.");
-        const nextUser = {
-          name: email
-            .split("@")[0]
-            .replace(/[._-]/g, " ")
-            .replace(/\b\w/g, (letter) => letter.toUpperCase()),
+      status,
+      login: async (email, password, remember) => {
+        const response = await api.post<AuthResponse>("/auth/login", {
           email,
-        };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(nextUser));
-        setUser(nextUser);
+          password,
+        });
+
+        storeAuthToken(response.data.token, remember);
+        setUser(response.data.user);
       },
       register: async ({ name, email, password }) => {
-        if (!name.trim() || !email || password.length < 6)
-          throw new Error(
-            "Complete all fields with a password of at least 6 characters.",
-          );
-        const nextUser = { name: name.trim(), email };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(nextUser));
-        setUser(nextUser);
+        const response = await api.post<AuthResponse>("/auth/register", {
+          name,
+          email,
+          password,
+        });
+
+        storeAuthToken(response.data.token);
+        setUser(response.data.user);
       },
-      logout: () => {
-        localStorage.removeItem(STORAGE_KEY);
-        setUser(null);
+      logout: async () => {
+        try {
+          await api.post("/auth/logout");
+        } catch {
+          // Local credentials must still be removed when the server is unavailable.
+        } finally {
+          clearAuthToken();
+          setUser(null);
+        }
       },
     }),
-    [user],
+    [status, user],
   );
 
   return (
