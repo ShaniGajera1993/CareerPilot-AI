@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   Check,
   CheckCircle2,
+  FilePenLine,
   FileCheck2,
   FileText,
   LoaderCircle,
@@ -19,6 +20,7 @@ import {
   type DragEvent,
 } from "react";
 import api, { parseApiError } from "../../services/api";
+import { ResumeEditor, type ResumeProfile } from "./ResumeEditor";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const ACCEPTED_EXTENSIONS = ["pdf", "docx"];
@@ -28,7 +30,9 @@ type Resume = {
   name: string;
   extension: "pdf" | "docx";
   size_bytes: number;
-  status: "uploaded";
+  status: "uploaded" | "parsing" | "parsed" | "parse_failed";
+  parsed_content: ResumeProfile | null;
+  parsed_at: string | null;
   created_at: string;
 };
 
@@ -68,7 +72,7 @@ function validateResume(file: File): string | null {
   return null;
 }
 
-export function ResumeWorkspace() {
+export function ResumeWorkspace({ onDirtyChange }: { onDirtyChange: (dirty: boolean) => void }) {
   const [resumes, setResumes] = useState<Resume[]>([]);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
@@ -80,6 +84,9 @@ export function ResumeWorkspace() {
   const [successMessage, setSuccessMessage] = useState("");
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [parsingId, setParsingId] = useState<number | null>(null);
+  const [parseError, setParseError] = useState("");
+  const [editingResume, setEditingResume] = useState<Resume | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalResumes, setTotalResumes] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -212,6 +219,29 @@ export function ResumeWorkspace() {
     setUploadProgress(null);
   }
 
+  async function parseResume(resume: Resume) {
+    if (parsingId !== null) return;
+    setParsingId(resume.id);
+    setParseError("");
+    setSuccessMessage("");
+
+    try {
+      const response = await api.post<ResumeResponse>(`/resumes/${resume.id}/parse`, undefined, { timeout: 150_000 });
+      const parsedResume = response.data.data;
+      setResumes((current) => current.map((item) => item.id === parsedResume.id ? parsedResume : item));
+      setEditingResume(parsedResume);
+      setSuccessMessage(`${parsedResume.name} is ready to review.`);
+    } catch (error) {
+      setParseError(
+        axios.isAxiosError(error) && error.response?.status === 503
+          ? "Resume parsing is not available right now. Try again later."
+          : parseApiError(error, "This resume could not be parsed.").message,
+      );
+    } finally {
+      setParsingId(null);
+    }
+  }
+
   return (
     <div className="resume-workspace">
       <section className="resume-intake">
@@ -329,15 +359,15 @@ export function ResumeWorkspace() {
         <aside className="resume-next-steps" aria-labelledby="resume-next-title">
           <span className="resume-spark"><Sparkles /></span>
           <h2 id="resume-next-title">From file to career signal</h2>
-          <p>Your upload starts a clear three-step resume workflow.</p>
+              <p>Your file becomes a structured draft you can review and refine.</p>
           <ol>
             <li className={resumes.length > 0 ? "is-complete" : "is-current"}>
               <span>{resumes.length > 0 ? <Check /> : "1"}</span>
               <div><strong>Upload securely</strong><small>Your original stays private.</small></div>
             </li>
-            <li>
-              <span>2</span>
-              <div><strong>Parse your experience</strong><small>Coming next in Phase 2.</small></div>
+            <li className={resumes.some((resume) => resume.status === "parsed") ? "is-complete" : resumes.length ? "is-current" : ""}>
+              <span>{resumes.some((resume) => resume.status === "parsed") ? <Check /> : "2"}</span>
+              <div><strong>Parse your experience</strong><small>Turn the file into editable sections.</small></div>
             </li>
             <li>
               <span>3</span>
@@ -357,6 +387,10 @@ export function ResumeWorkspace() {
             <span>{totalResumes} {totalResumes === 1 ? "file" : "files"}</span>
           )}
         </header>
+
+        <div className={`resume-parse-feedback${parseError ? " has-error" : ""}`} role={parseError ? "alert" : "status"} aria-live="polite">
+          {parseError}
+        </div>
 
         {isLoading ? (
           <div className="resume-library-state" aria-live="polite" aria-busy="true">
@@ -388,7 +422,20 @@ export function ResumeWorkspace() {
                   <strong title={resume.name}>{resume.name}</strong>
                   <span>{formatFileSize(resume.size_bytes)} · Uploaded {formatUploadDate(resume.created_at)}</span>
                 </div>
-                <em><CheckCircle2 /> Ready for analysis</em>
+                <div className="resume-row-actions">
+                  {resume.status === "parsed" && resume.parsed_content ? (
+                    <button type="button" onClick={() => setEditingResume(resume)}><FilePenLine /> Review draft</button>
+                  ) : (
+                    <button type="button" onClick={() => void parseResume(resume)} disabled={parsingId !== null} aria-busy={parsingId === resume.id}>
+                      {parsingId === resume.id ? <LoaderCircle className="spin" /> : <Sparkles />}
+                      {parsingId === resume.id ? "Parsing…" : resume.status === "parse_failed" ? "Try parsing again" : "Parse with AI"}
+                    </button>
+                  )}
+                  <em className={`resume-status is-${resume.status}`}>
+                    {resume.status === "parsed" ? <CheckCircle2 /> : <FileCheck2 />}
+                    {resume.status === "parsed" ? "Parsed" : resume.status === "parse_failed" ? "Needs retry" : "Uploaded"}
+                  </em>
+                </div>
               </li>
             ))}
             {(resumes.length < totalResumes || loadMoreError) && (
@@ -410,6 +457,18 @@ export function ResumeWorkspace() {
           </ul>
         )}
       </section>
+      {editingResume?.parsed_content && (
+        <ResumeEditor
+          key={`${editingResume.id}-${editingResume.parsed_at ?? "draft"}`}
+          resume={{ id: editingResume.id, name: editingResume.name, parsed_content: editingResume.parsed_content }}
+          onClose={() => setEditingResume(null)}
+          onDirtyChange={onDirtyChange}
+          onSaved={(profile) => {
+            setResumes((current) => current.map((item) => item.id === editingResume.id ? { ...item, parsed_content: profile } : item));
+            setEditingResume((current) => current ? { ...current, parsed_content: profile } : current);
+          }}
+        />
+      )}
     </div>
   );
 }

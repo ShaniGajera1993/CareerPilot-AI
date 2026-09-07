@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\StoreResumeRequest;
+use App\Http\Requests\Api\V1\UpdateResumeRequest;
 use App\Http\Resources\ResumeResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -61,5 +62,17 @@ class ResumeController extends Controller
         return (new ResumeResource($resume))
             ->response()
             ->setStatusCode(Response::HTTP_CREATED);
+    }
+
+    public function update(UpdateResumeRequest $request, int $resume): ResumeResource
+    {
+        $ownedResume = $request->user()->resumes()->findOrFail($resume);
+        $ownedResume->update([
+            'parsed_content' => $request->validated(),
+            'parsed_at' => $ownedResume->parsed_at ?? now(),
+            'status' => 'parsed',
+        ]);
+
+        return new ResumeResource($ownedResume->refresh());
     }
 }
