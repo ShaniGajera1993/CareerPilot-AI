@@ -5,6 +5,7 @@ import { DashboardSidebar } from "../components/dashboard/DashboardSidebar";
 import { OverviewCards } from "../components/dashboard/OverviewCards";
 import { ResumeWorkspace } from "../components/resume/ResumeWorkspace";
 import { JobDescriptionWorkspace } from "../components/job/JobDescriptionWorkspace";
+import { CareerAnalysisWorkspace } from "../components/analysis/CareerAnalysisWorkspace";
 import { useAuth } from "../context/auth";
 import "../components/dashboard/dashboard.css";
 
@@ -71,6 +72,12 @@ export function DashboardPage() {
                   <h1>Target roles</h1>
                   <p>Save the job descriptions you want to compare with your resume.</p>
                 </>
+              ) : active === "AI Toolkit" ? (
+                <>
+                  <span>APPLICATION LAB</span>
+                  <h1>AI toolkit</h1>
+                  <p>Measure the match, strengthen your evidence, and draft the introduction.</p>
+                </>
               ) : (
                 <>
                   <span>CAREERPILOT WORKSPACE</span>
@@ -86,7 +93,7 @@ export function DashboardPage() {
             )}
           </section>
           <div hidden={active !== "Overview"}>
-            <OverviewCards />
+            <OverviewCards onNavigate={selectSection} />
           </div>
           <div hidden={active !== "My Resume"}>
             <ResumeWorkspace onDirtyChange={setResumeDirty} />
@@ -94,7 +101,10 @@ export function DashboardPage() {
           <div hidden={active !== "Job Matcher"}>
             <JobDescriptionWorkspace onDirtyChange={setJobDirty} />
           </div>
-          {active !== "Overview" && active !== "My Resume" && active !== "Job Matcher" && (
+          <div hidden={active !== "AI Toolkit"}>
+            <CareerAnalysisWorkspace />
+          </div>
+          {active !== "Overview" && active !== "My Resume" && active !== "Job Matcher" && active !== "AI Toolkit" && (
             <section className="workspace-placeholder">
               <CalendarDays />
               <h2>{active}</h2>

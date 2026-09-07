@@ -36,7 +36,7 @@ const applications = [
   },
 ];
 
-export function OverviewCards() {
+export function OverviewCards({ onNavigate }: { onNavigate: (section: string) => void }) {
   const [job, setJob] = useState("");
   const [message, setMessage] = useState("");
   const flash = (text: string) => {
@@ -70,7 +70,7 @@ export function OverviewCards() {
               <p>
                 Your resume is performing better than <b>76%</b> of candidates.
               </p>
-              <button>
+              <button type="button" onClick={() => onNavigate("AI Toolkit")}>
                 View full analysis <ArrowRight />
               </button>
             </div>
@@ -94,6 +94,7 @@ export function OverviewCards() {
           </header>
           <p>Paste a job description and see how well your resume fits.</p>
           <textarea
+            className="resize-none"
             maxLength={3000}
             value={job}
             onChange={(event) => setJob(event.target.value)}
@@ -138,7 +139,7 @@ export function OverviewCards() {
               <h2>Recent applications</h2>
               <p>Keep track of your job search progress</p>
             </div>
-            <button>
+            <button type="button" onClick={() => onNavigate("Applications")}>
               View all <ArrowRight />
             </button>
           </header>
@@ -182,7 +183,7 @@ export function OverviewCards() {
               </i>
             </div>
           ))}
-          <button>
+          <button type="button" onClick={() => onNavigate("AI Toolkit")}>
             View skill analysis <ArrowRight />
           </button>
         </article>

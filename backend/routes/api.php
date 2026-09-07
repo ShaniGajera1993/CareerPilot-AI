@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\CoverLetterController;
 use App\Http\Controllers\Api\V1\JobDescriptionController;
+use App\Http\Controllers\Api\V1\ResumeAnalysisController;
 use App\Http\Controllers\Api\V1\ResumeController;
 use App\Http\Controllers\Api\V1\ResumeParsingController;
 use Illuminate\Support\Facades\Route;
@@ -43,3 +45,16 @@ Route::prefix('v1/job-descriptions')
             ->middleware('throttle:20,1')
             ->name('store');
     });
+
+Route::middleware('auth:sanctum')->prefix('v1')->group(function (): void {
+    Route::get('/resume-analyses', [ResumeAnalysisController::class, 'index'])
+        ->name('api.v1.resume-analyses.index');
+    Route::post('/resume-analyses', [ResumeAnalysisController::class, 'store'])
+        ->middleware('throttle:3,1')
+        ->name('api.v1.resume-analyses.store');
+    Route::get('/cover-letters', [CoverLetterController::class, 'index'])
+        ->name('api.v1.cover-letters.index');
+    Route::post('/cover-letters', [CoverLetterController::class, 'store'])
+        ->middleware('throttle:3,1')
+        ->name('api.v1.cover-letters.store');
+});
