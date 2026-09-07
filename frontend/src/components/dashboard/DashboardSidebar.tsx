@@ -1,6 +1,7 @@
 import {
   BookOpen,
   BriefcaseBusiness,
+  FileSearch,
   FileText,
   LayoutDashboard,
   MessageSquareText,
@@ -14,6 +15,7 @@ const items = [
   { label: "Overview", icon: LayoutDashboard },
   { label: "My Resume", icon: FileText },
   { label: "Job Matcher", icon: Target },
+  { label: "AI Toolkit", icon: FileSearch },
   { label: "Applications", icon: BriefcaseBusiness },
   { label: "Interview Prep", icon: MessageSquareText },
   { label: "Learning Path", icon: BookOpen },
@@ -70,7 +72,7 @@ export function DashboardSidebar({
           <Sparkles />
           <strong>Unlock your potential</strong>
           <span>Get unlimited AI insights with CareerPilot Pro.</span>
-          <button>Explore Pro →</button>
+          <button type="button" disabled title="CareerPilot Pro is coming soon">Explore Pro →</button>
         </div>
       </aside>
       {open && (

@@ -150,7 +150,7 @@ export function ResumeEditor({
             ))}
             <label className="editor-wide">
               <span>Professional summary</span>
-              <textarea rows={5} value={profile.basics.summary ?? ""} onChange={(event) => updateBasic("summary", event.target.value)} />
+              <textarea className="resize-none" rows={5} value={profile.basics.summary ?? ""} onChange={(event) => updateBasic("summary", event.target.value)} />
             </label>
           </div>
         </fieldset>
@@ -159,7 +159,7 @@ export function ResumeEditor({
           <legend>Skills</legend>
           <label>
             <span>Skills, one per line</span>
-            <textarea
+            <textarea className="resize-none"
               rows={5}
               value={profile.skills.join("\n")}
               onChange={(event) => setProfile((current) => ({ ...current, skills: event.target.value.split("\n").map((skill) => skill.trim()).filter(Boolean) }))}
@@ -184,7 +184,7 @@ export function ResumeEditor({
                   </label>
                 ))}
                 <label className="editor-checkbox"><input type="checkbox" checked={item.current} onChange={(event) => setProfile((current) => ({ ...current, experience: current.experience.map((entry, entryIndex) => entryIndex === index ? { ...entry, current: event.target.checked } : entry) }))} /> Current role</label>
-                <label className="editor-wide"><span>Achievements, one per line</span><textarea rows={4} value={item.bullets.join("\n")} onChange={(event) => setProfile((current) => ({ ...current, experience: current.experience.map((entry, entryIndex) => entryIndex === index ? { ...entry, bullets: event.target.value.split("\n").map((bullet) => bullet.trim()).filter(Boolean) } : entry) }))} /></label>
+                <label className="editor-wide"><span>Achievements, one per line</span><textarea className="resize-none" rows={4} value={item.bullets.join("\n")} onChange={(event) => setProfile((current) => ({ ...current, experience: current.experience.map((entry, entryIndex) => entryIndex === index ? { ...entry, bullets: event.target.value.split("\n").map((bullet) => bullet.trim()).filter(Boolean) } : entry) }))} /></label>
               </div>
               <button type="button" className="editor-remove" onClick={() => setProfile((current) => ({ ...current, experience: current.experience.filter((_, entryIndex) => entryIndex !== index) }))}><Trash2 /> Remove experience</button>
             </div>

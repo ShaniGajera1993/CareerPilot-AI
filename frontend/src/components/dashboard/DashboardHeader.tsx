@@ -27,7 +27,7 @@ export function DashboardHeader({ onMenu }: { onMenu: () => void }) {
 
   return (
     <header className="dashboard-header">
-      <button className="dashboard-menu" onClick={onMenu}>
+      <button type="button" className="dashboard-menu" onClick={onMenu} aria-label="Open menu">
         <Menu />
       </button>
       <label className="dashboard-search">
@@ -36,7 +36,7 @@ export function DashboardHeader({ onMenu }: { onMenu: () => void }) {
         <kbd>⌘ K</kbd>
       </label>
       <div className="dashboard-user">
-        <button className="notification">
+        <button type="button" className="notification" aria-label="Notifications (coming soon)" disabled>
           <Bell />
           <i />
         </button>

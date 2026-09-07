@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable(['original_name', 'disk', 'path', 'mime_type', 'extension', 'size_bytes', 'status', 'parsed_content', 'parsed_at'])]
 class Resume extends Model
@@ -20,6 +21,18 @@ class Resume extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /** @return HasMany<ResumeAnalysis, $this> */
+    public function analyses(): HasMany
+    {
+        return $this->hasMany(ResumeAnalysis::class);
+    }
+
+    /** @return HasMany<CoverLetter, $this> */
+    public function coverLetters(): HasMany
+    {
+        return $this->hasMany(CoverLetter::class);
     }
 
     /**

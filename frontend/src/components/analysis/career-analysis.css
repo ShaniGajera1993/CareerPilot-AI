@@ -1,0 +1,734 @@
+.career-toolkit {
+  display: grid;
+  gap: 20px;
+}
+
+.career-brief,
+.analysis-report > article,
+.analysis-empty,
+.cover-letter-studio,
+.career-toolkit-state {
+  background: #fff;
+  border: 1px solid #e9e8f0;
+  border-radius: 18px;
+}
+
+.career-brief {
+  padding: 22px;
+}
+
+.career-brief > header,
+.cover-letter-studio > header,
+.analysis-improvements > header,
+.analysis-rewrites > header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.career-brief > header > span,
+.analysis-summary-card > span,
+.analysis-strengths > header > svg,
+.analysis-improvements > header > svg,
+.analysis-rewrites > header > svg {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 10px;
+  background: #f1efff;
+  color: #6957e8;
+}
+
+.career-brief svg,
+.analysis-summary-card > span svg,
+.analysis-strengths > header > svg,
+.analysis-improvements > header > svg,
+.analysis-rewrites > header > svg {
+  width: 18px;
+}
+
+.career-brief header p,
+.cover-letter-studio header span,
+.analysis-score-topline span {
+  margin: 0 0 3px;
+  color: #6957e8;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.25px;
+}
+
+.career-brief h2,
+.cover-letter-studio h2,
+.analysis-report h2,
+.analysis-report h3,
+.analysis-report h4 {
+  font-family: "Manrope", sans-serif;
+}
+
+.career-brief h2,
+.cover-letter-studio h2 {
+  margin: 0;
+  color: #15182b;
+  font-size: 17px;
+}
+
+.career-brief form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: end;
+  margin-top: 18px;
+}
+
+.career-brief label {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+  color: #535b6e;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.career-brief select {
+  width: 100%;
+  height: 47px;
+  border: 1px solid #deddea;
+  border-radius: 9px;
+  background: #fff;
+  padding: 0 36px 0 12px;
+  color: #15182b;
+  font: 600 12px "DM Sans", sans-serif;
+}
+
+.career-brief-arrow {
+  height: 47px;
+  display: grid;
+  place-items: center;
+  color: #a7aabc;
+}
+
+.career-brief-arrow svg {
+  width: 16px;
+}
+
+.career-brief button,
+.cover-generate,
+.career-toolkit-state button {
+  min-height: 47px;
+  border: 0;
+  border-radius: 9px;
+  background: #6957e8;
+  color: #fff;
+  padding: 0 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font: 700 11px "DM Sans", sans-serif;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.career-brief button:hover,
+.cover-generate:hover,
+.career-toolkit-state button:hover {
+  background: #5846d5;
+}
+
+.career-brief button:disabled,
+.cover-generate:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.career-brief button svg,
+.cover-generate svg,
+.career-toolkit-state button svg {
+  width: 16px;
+}
+
+.career-brief select:focus-visible,
+.career-brief button:focus-visible,
+.cover-letter-studio button:focus-visible,
+.tone-options input:focus-visible + span,
+.career-toolkit-state button:focus-visible {
+  outline: 3px solid rgb(105 87 232 / 22%);
+  outline-offset: 2px;
+}
+
+.career-operation-status {
+  min-height: 20px;
+  margin-top: 10px;
+  color: #70768a;
+  font-size: 10px;
+}
+
+.career-operation-status.has-error {
+  color: #b5424c;
+  font-weight: 700;
+}
+
+.analysis-report {
+  display: grid;
+  grid-template-columns: minmax(235px, 0.72fr) minmax(0, 1.55fr);
+  gap: 16px;
+}
+
+.analysis-report > article {
+  padding: 22px;
+}
+
+.analysis-report > article.analysis-score-card {
+  position: relative;
+  overflow: hidden;
+  background: #17162a;
+  color: #fff;
+}
+
+.analysis-score-card::after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  right: -72px;
+  bottom: -78px;
+  border: 22px solid rgb(133 113 255 / 20%);
+  border-radius: 50%;
+}
+
+.analysis-score-topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.analysis-score-topline small,
+.analysis-score-card > small {
+  color: #aaa7bf;
+  font-size: 9px;
+}
+
+.analysis-score-number {
+  display: flex;
+  align-items: baseline;
+  margin: 22px 0 8px;
+}
+
+.analysis-score-number strong {
+  font: 750 64px/0.9 "Manrope", sans-serif;
+  letter-spacing: -4px;
+}
+
+.analysis-score-number span {
+  color: #aaa7bf;
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+.analysis-score-track {
+  width: 100%;
+  height: 5px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #36334f;
+}
+
+.analysis-score-track i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #8d7aff, #b7adff);
+}
+
+.analysis-score-card h2 {
+  margin: 18px 0 6px;
+  font-size: 17px;
+}
+
+.analysis-score-card p {
+  min-height: 52px;
+  margin: 0 0 18px;
+  color: #c7c4d7;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.analysis-summary-card {
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  align-content: start;
+  gap: 0 12px;
+}
+
+.analysis-summary-card h3,
+.analysis-strengths h3,
+.analysis-improvements h3,
+.analysis-rewrites h3 {
+  margin: 1px 0 6px;
+  color: #15182b;
+  font-size: 14px;
+}
+
+.analysis-summary-card > div > p,
+.analysis-improvements header p,
+.analysis-rewrites header p {
+  margin: 0;
+  color: #70768a;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.analysis-keywords {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.analysis-keywords section {
+  border: 1px solid #dcefe8;
+  border-radius: 11px;
+  background: #f5fbf8;
+  padding: 13px;
+}
+
+.analysis-keywords section.is-missing {
+  border-color: #eee9cf;
+  background: #fffdf4;
+}
+
+.analysis-keywords h4 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 10px;
+  color: #3c6155;
+  font-size: 10px;
+}
+
+.analysis-keywords .is-missing h4 {
+  color: #796b37;
+}
+
+.analysis-keywords h4 svg {
+  width: 14px;
+}
+
+.analysis-keywords section > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.analysis-keywords section > div > span {
+  border-radius: 999px;
+  background: #fff;
+  padding: 5px 8px;
+  color: #495167;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.analysis-strengths,
+.analysis-improvements,
+.analysis-rewrites {
+  grid-column: 1 / -1;
+}
+
+.analysis-strengths > header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.analysis-strengths ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.analysis-strengths li {
+  border-left: 3px solid #2f9f7d;
+  background: #f7faf9;
+  padding: 10px 12px;
+  color: #424a5d;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.analysis-improvements ol {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.analysis-improvements li {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 13px;
+  border-top: 1px solid #efedf4;
+  padding-top: 14px;
+}
+
+.analysis-improvements li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.priority {
+  align-self: start;
+  border-radius: 999px;
+  padding: 5px 7px;
+  background: #f1efff;
+  color: #6957e8;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.priority.is-high {
+  background: #fff0f1;
+  color: #b5424c;
+}
+
+.priority.is-low {
+  background: #eef8f5;
+  color: #287b62;
+}
+
+.analysis-improvements h4,
+.analysis-rewrites h4 {
+  margin: 0 0 4px;
+  color: #252a3b;
+  font-size: 11px;
+}
+
+.analysis-improvements li p,
+.analysis-rewrites section p,
+.analysis-rewrites del {
+  margin: 0;
+  color: #687084;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.analysis-improvements blockquote {
+  margin: 9px 0 0;
+  border-left: 2px solid #8d7aff;
+  background: #f7f6ff;
+  padding: 9px 11px;
+  color: #3d385d;
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.analysis-rewrites > section {
+  margin-top: 13px;
+  border: 1px solid #eceaf4;
+  border-radius: 10px;
+  padding: 13px;
+}
+
+.analysis-rewrites del {
+  display: block;
+  margin-bottom: 7px;
+  color: #9a7580;
+}
+
+.analysis-rewrites section p {
+  color: #35304f;
+  font-weight: 600;
+}
+
+.analysis-rewrites section small {
+  display: block;
+  margin-top: 7px;
+  color: #858b9a;
+  font-size: 9px;
+}
+
+.cover-letter-studio {
+  padding: 24px;
+}
+
+.cover-letter-studio > header {
+  justify-content: space-between;
+}
+
+.cover-letter-studio > header > svg {
+  width: 42px;
+  height: 42px;
+  padding: 10px;
+  border-radius: 12px;
+  background: #f1efff;
+  color: #6957e8;
+}
+
+.cover-letter-studio header p {
+  margin: 5px 0 0;
+  color: #70768a;
+  font-size: 10px;
+}
+
+.cover-letter-studio fieldset {
+  margin: 20px 0 13px;
+  border: 0;
+  padding: 0;
+}
+
+.cover-letter-studio legend {
+  margin-bottom: 8px;
+  color: #535b6e;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.tone-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.tone-options label {
+  cursor: pointer;
+}
+
+.tone-options input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tone-options label > span {
+  min-height: 58px;
+  display: grid;
+  gap: 2px;
+  align-content: center;
+  border: 1px solid #e3e2ea;
+  border-radius: 9px;
+  padding: 9px 11px;
+  background: #fff;
+}
+
+.tone-options label:hover > span,
+.tone-options label.is-selected > span {
+  border-color: #8d7aff;
+  background: #f7f6ff;
+}
+
+.tone-options strong {
+  color: #2a2f40;
+  font-size: 10px;
+}
+
+.tone-options small {
+  color: #818798;
+  font-size: 9px;
+}
+
+.cover-letter-paper {
+  margin-top: 18px;
+  border: 1px solid #e5e2ee;
+  border-radius: 11px;
+  background: #fcfcfe;
+  padding: 18px;
+}
+
+.cover-letter-paper > header {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  border-bottom: 1px solid #eceaf2;
+  padding-bottom: 12px;
+}
+
+.cover-letter-paper header div {
+  display: grid;
+  gap: 3px;
+}
+
+.cover-letter-paper header strong {
+  color: #252a3b;
+  font-size: 11px;
+}
+
+.cover-letter-paper header span,
+.cover-letter-paper > small {
+  color: #858b9a;
+  font-size: 9px;
+}
+
+.cover-letter-paper button {
+  align-self: center;
+  border: 1px solid #dedbea;
+  border-radius: 8px;
+  background: #fff;
+  color: #5e4ed3;
+  padding: 8px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.cover-letter-paper button:hover {
+  border-color: #8d7aff;
+  background: #f7f6ff;
+}
+
+.cover-letter-paper button svg {
+  width: 14px;
+}
+
+.cover-letter-paper > p {
+  margin: 16px 0 10px;
+  color: #3e4557;
+  white-space: pre-wrap;
+  font-size: 11px;
+  line-height: 1.75;
+}
+
+.cover-letter-empty,
+.analysis-empty,
+.career-toolkit-state {
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #70768a;
+}
+
+.analysis-empty,
+.career-toolkit-state {
+  padding: 34px;
+}
+
+.analysis-empty svg,
+.career-toolkit-state > svg {
+  width: 30px;
+  color: #6957e8;
+}
+
+.analysis-empty strong,
+.career-toolkit-state strong {
+  margin-top: 10px;
+  color: #252a3b;
+  font: 700 14px "Manrope", sans-serif;
+}
+
+.analysis-empty p,
+.career-toolkit-state p {
+  margin: 6px 0 0;
+  font-size: 10px;
+}
+
+.career-toolkit-state button {
+  min-height: 40px;
+  margin-top: 14px;
+}
+
+.career-toolkit-state.has-error > svg,
+.career-toolkit-state.has-error strong {
+  color: #b5424c;
+}
+
+.cover-letter-empty {
+  min-height: 90px;
+  margin-top: 16px;
+  border: 1px dashed #dedbea;
+  border-radius: 10px;
+  font-size: 10px;
+}
+
+.career-history-note {
+  margin: -7px 3px 5px;
+  color: #858b9a;
+  font-size: 9px;
+  text-align: right;
+}
+
+.career-toolkit .spin {
+  animation: career-spin 0.9s linear infinite;
+}
+
+@keyframes career-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 900px) {
+  .career-brief form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .career-brief-arrow {
+    display: none;
+  }
+
+  .career-brief button {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 680px) {
+  .career-brief form,
+  .analysis-report,
+  .analysis-keywords,
+  .analysis-strengths ul,
+  .tone-options {
+    grid-template-columns: 1fr;
+  }
+
+  .analysis-strengths,
+  .analysis-improvements,
+  .analysis-rewrites {
+    grid-column: auto;
+  }
+
+  .career-brief,
+  .analysis-report > article,
+  .cover-letter-studio {
+    padding: 17px;
+  }
+
+  .analysis-improvements li {
+    grid-template-columns: 1fr;
+  }
+
+  .priority {
+    justify-self: start;
+  }
+
+  .cover-letter-paper > header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .career-toolkit .spin {
+    animation-duration: 1.8s;
+  }
+}
+
+@media (forced-colors: active) {
+  .analysis-score-card,
+  .analysis-keywords section,
+  .analysis-strengths li,
+  .analysis-improvements blockquote {
+    forced-color-adjust: auto;
+  }
+}

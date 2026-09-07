@@ -350,19 +350,19 @@ DELETE /api/applications/{id}
 # 🚀 Roadmap
 
 ## Phase 1
-- [ ] Authentication
-- [ ] Dashboard
-- [ ] Resume Upload
+- [x] Authentication
+- [x] Dashboard
+- [x] Resume Upload
 
 ## Phase 2
-- [ ] Resume Parser
-- [ ] Resume Editor
-- [ ] Job Description Upload
+- [x] Resume Parser
+- [x] Resume Editor
+- [x] Job Description Upload
 
 ## Phase 3
-- [ ] ATS Score
-- [ ] Resume Improvement
-- [ ] Cover Letter Generator
+- [x] ATS Score
+- [x] Resume Improvement
+- [x] Cover Letter Generator
 
 ## Phase 4
 - [ ] Interview Preparation
