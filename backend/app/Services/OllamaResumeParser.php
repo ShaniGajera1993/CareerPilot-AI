@@ -15,13 +15,17 @@ class OllamaResumeParser
      */
     public function parse(Resume $resume): array
     {
+        if (function_exists('set_time_limit')) {
+            set_time_limit(240);
+        }
+
         $schema = $this->schema();
         $resumeText = $this->textExtractor->extract($resume);
         $baseUrl = rtrim((string) config('services.ollama.url'), '/');
 
         $response = Http::acceptJson()
             ->connectTimeout(5)
-            ->timeout(180)
+            ->timeout(210)
             ->retry(2, 500, throw: false)
             ->post("{$baseUrl}/api/generate", [
                 'model' => config('services.ollama.model'),

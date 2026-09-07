@@ -226,7 +226,7 @@ export function ResumeWorkspace({ onDirtyChange }: { onDirtyChange: (dirty: bool
     setSuccessMessage("");
 
     try {
-      const response = await api.post<ResumeResponse>(`/resumes/${resume.id}/parse`, undefined, { timeout: 150_000 });
+      const response = await api.post<ResumeResponse>(`/resumes/${resume.id}/parse`, undefined, { timeout: 240_000 });
       const parsedResume = response.data.data;
       setResumes((current) => current.map((item) => item.id === parsedResume.id ? parsedResume : item));
       setEditingResume(parsedResume);
