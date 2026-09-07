@@ -1130,6 +1130,183 @@
 .resume-list li > em svg {
   width: 11px;
 }
+.resume-parse-feedback {
+  min-height: 28px;
+  padding-top: 9px;
+  color: #0b7659;
+  font-size: 12px;
+}
+.resume-parse-feedback.has-error { color: #b5424c; }
+.resume-list li > .resume-row-actions {
+  min-width: auto;
+  flex: 0 0 auto;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+.resume-row-actions button,
+.editor-section-title button,
+.editor-remove {
+  min-height: 36px;
+  border: 1px solid #dedbea;
+  border-radius: 8px;
+  background: #fff;
+  color: #5949ca;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.resume-row-actions button:hover:not(:disabled),
+.editor-section-title button:hover,
+.editor-remove:hover { border-color: #958bd4; background: #faf9ff; }
+.resume-row-actions button:disabled { cursor: wait; opacity: 0.65; }
+.resume-row-actions button svg,
+.editor-section-title button svg,
+.editor-remove svg { width: 14px; }
+.resume-list li > .resume-row-actions .resume-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 8px;
+  border-radius: 10px;
+  background: #f0f1f3;
+  color: #697180;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
+.resume-list li > .resume-row-actions .resume-status.is-parsed { background: #e8f8f2; color: #0b7659; }
+.resume-list li > .resume-row-actions .resume-status.is-parse_failed { background: #fff2ea; color: #9b5224; }
+.resume-status svg { width: 11px; }
+
+.resume-editor {
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 18px 55px #23204716;
+}
+.resume-editor-header {
+  padding: 24px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-bottom: 1px solid #ececf1;
+}
+.resume-editor-header > div > span { color: #6957e8; font-size: 9px; font-weight: 800; letter-spacing: 1.2px; }
+.resume-editor-header h2 { margin: 5px 0 4px; font: 700 18px "Manrope"; }
+.resume-editor-header p { margin: 0; color: #697180; font-size: 12px; }
+.editor-close { width: 44px; height: 44px; border: 0; border-radius: 9px; background: #f4f3f8; color: #6e7582; display: grid; place-items: center; }
+.editor-close:hover:not(:disabled) { background: #ece9fb; color: #5142bd; }
+.editor-close:disabled { cursor: wait; opacity: .55; }
+.editor-close svg { width: 17px; }
+.resume-editor form { padding: 0 24px 24px; }
+.editor-feedback { min-height: 40px; padding: 13px 0 8px; color: #6d7482; font-size: 11px; }
+.editor-feedback.has-error { color: #b5424c; }
+.resume-editor fieldset { margin: 15px 0 0; padding: 19px; border: 1px solid #e6e6ed; border-radius: 12px; }
+.resume-editor legend { padding: 0 7px; color: #242a3c; font: 700 13px "Manrope"; text-transform: capitalize; }
+.editor-grid,
+.editor-entry-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
+.resume-editor label,
+.job-fields label { min-width: 0; display: flex; flex-direction: column; gap: 6px; color: #4f5665; font-size: 11px; font-weight: 700; }
+.resume-editor input:not([type="checkbox"]),
+.resume-editor textarea,
+.job-fields input,
+.job-fields textarea {
+  width: 100%;
+  border: 1px solid #dfe1e8;
+  border-radius: 8px;
+  background: #fff;
+  color: #252a3c;
+  padding: 10px 11px;
+  outline: none;
+  font-size: 12px;
+  font-weight: 500;
+}
+.resume-editor textarea,
+.job-fields textarea { resize: none; line-height: 1.55; }
+.resume-editor input:focus,
+.resume-editor textarea:focus,
+.job-fields input:focus,
+.job-fields textarea:focus { border-color: #6957e8; box-shadow: 0 0 0 3px #e9e5ff; }
+.editor-wide { grid-column: 1 / -1; }
+.resume-editor label.editor-checkbox { min-height: 42px; flex-direction: row; align-items: center; align-self: end; }
+.editor-checkbox input { accent-color: #6957e8; width: 17px; height: 17px; }
+.resume-editor fieldset > legend:has(svg) { display: inline-flex; align-items: center; gap: 7px; }
+.resume-editor fieldset > legend svg { width: 16px; color: #6957e8; }
+.editor-section-title { display: flex; align-items: center; justify-content: flex-end; margin-top: -13px; }
+.editor-entry { padding: 17px 0; border-bottom: 1px solid #eeeef2; }
+.editor-entry:last-child { padding-bottom: 0; border-bottom: 0; }
+.editor-remove { margin-top: 11px; color: #9b4b53; }
+.editor-empty { margin: 4px 0 0; color: #777f8d; font-size: 12px; }
+.editor-actions { position: sticky; bottom: 0; margin: 20px -24px -24px; padding: 14px 24px; display: flex; justify-content: flex-end; gap: 9px; border-top: 1px solid #e6e6ed; border-radius: 0 0 14px 14px; background: #ffffffef; backdrop-filter: blur(8px); }
+.editor-actions button { min-width: 126px; min-height: 44px; border-radius: 8px; font-size: 12px; font-weight: 700; }
+.editor-secondary { border: 1px solid #dcdde5; background: #fff; color: #606878; }
+.editor-secondary:disabled { cursor: not-allowed; opacity: .55; }
+.editor-save { border: 0; background: #6957e8; color: #fff; display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
+.editor-save:hover:not(:disabled) { background: #5746d2; }
+.editor-save:disabled { cursor: not-allowed; background: #d8d5e7; }
+.editor-save svg { width: 15px; }
+
+.job-workspace { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(290px, .75fr); gap: 16px; align-items: start; }
+.job-intake,
+.job-library { border-radius: 14px; background: #fff; box-shadow: 0 10px 38px #2420470c; }
+.job-intake { padding: 24px; }
+.job-intake > header { display: flex; gap: 12px; align-items: center; }
+.job-intake > header > span { width: 40px; height: 40px; flex: 0 0 auto; border-radius: 10px; background: #efedff; color: #6654e5; display: grid; place-items: center; }
+.job-intake > header svg { width: 19px; }
+.job-intake h2,
+.job-library h2 { margin: 0; font: 700 14px "Manrope"; }
+.job-intake header p,
+.job-library header p { margin: 4px 0 0; color: #687180; font-size: 12px; line-height: 1.45; }
+.job-feedback { min-height: 38px; padding-top: 12px; color: #0b7659; font-size: 12px; }
+.job-feedback.has-error { color: #b5424c; }
+.job-fields { margin: 0; padding: 0; border: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+.job-fields label > span em { color: #8c93a0; font-style: normal; font-weight: 500; }
+.job-fields label > small { min-height: 14px; color: #7a8290; font-size: 10px; font-weight: 500; }
+.job-fields label > small.field-error { color: #b5424c; }
+.job-description-field { grid-column: 1 / -1; }
+.job-intake footer { display: flex; align-items: center; justify-content: space-between; margin-top: 13px; }
+.job-intake footer > span { color: #858c98; font-size: 10px; }
+.job-intake footer button { min-width: 165px; min-height: 44px; border: 0; border-radius: 8px; background: #6957e8; color: #fff; display: inline-flex; align-items: center; justify-content: center; gap: 7px; font-size: 12px; font-weight: 700; }
+.job-intake footer button:hover:not(:disabled) { background: #5746d2; }
+.job-intake footer button:disabled { cursor: wait; opacity: .65; }
+.job-intake footer button svg { width: 15px; }
+.job-library { overflow: hidden; }
+.job-library > header { padding: 21px; display: flex; align-items: flex-start; justify-content: space-between; border-bottom: 1px solid #ececf1; }
+.job-library > header > span { min-width: 28px; padding: 4px 8px; border-radius: 10px; background: #efedff; color: #604fd0; text-align: center; font-size: 11px; font-weight: 700; }
+.job-library-state { min-height: 220px; padding: 25px; display: flex; align-items: center; justify-content: center; gap: 7px; color: #697180; font-size: 12px; text-align: center; }
+.job-library-state.is-empty,
+.job-library-state.has-error { flex-direction: column; }
+.job-library-state > svg { width: 27px; color: #6957e8; }
+.job-library-state strong { color: #303649; font: 700 13px "Manrope"; }
+.job-library-state button { min-height: 40px; border: 1px solid #dedbea; border-radius: 8px; background: #fff; color: #5949ca; padding: 0 11px; display: inline-flex; align-items: center; gap: 6px; font-weight: 700; }
+.job-library ul { max-height: 620px; margin: 0; padding: 0 20px; overflow-y: auto; scrollbar-gutter: stable; list-style: none; }
+.job-library li { padding: 16px 0; display: flex; gap: 11px; border-bottom: 1px solid #eeeef2; }
+.job-library li:last-child { border-bottom: 0; }
+.job-library li > span { width: 35px; height: 35px; flex: 0 0 auto; border-radius: 9px; background: #eef7f4; color: #178064; display: grid; place-items: center; }
+.job-library li > span svg { width: 16px; }
+.job-library li > div { min-width: 0; }
+.job-library li strong { display: block; color: #292f41; font-size: 12px; }
+.job-library li small { display: block; margin-top: 3px; color: #858c98; font-size: 10px; }
+.job-library li p { display: -webkit-box; overflow: hidden; margin: 8px 0 0; color: #687180; font-size: 11px; line-height: 1.45; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+.job-library-more { min-height: 65px; padding: 10px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; border-top: 1px solid #eeeef2; color: #b5424c; font-size: 11px; }
+.job-library-more button { min-height: 42px; border: 1px solid #d9d6ed; border-radius: 8px; background: #fff; color: #5949ca; padding: 0 13px; display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; }
+.job-library-more button:hover:not(:disabled) { border-color: #9f96df; background: #faf9ff; }
+.job-library-more button:disabled { cursor: wait; opacity: .65; }
+.job-library-more button svg { width: 14px; }
+
+.dashboard-dialog-backdrop { position: fixed; inset: 0; z-index: 100; padding: 20px; display: grid; place-items: center; background: #1d213a88; }
+.dashboard-dialog { width: min(100%, 410px); border-radius: 14px; background: #fff; padding: 24px; box-shadow: 0 24px 70px #15182b55; }
+.dashboard-dialog h2 { margin: 0; font: 700 18px "Manrope"; }
+.dashboard-dialog p { margin: 8px 0 22px; color: #687180; font-size: 12px; line-height: 1.5; }
+.dashboard-dialog > div { display: flex; justify-content: flex-end; gap: 8px; }
+.dashboard-dialog button { min-height: 42px; border: 1px solid #dcdee6; border-radius: 8px; background: #fff; color: #596170; padding: 0 13px; font-size: 12px; font-weight: 700; }
+.dashboard-dialog button.is-danger { border: 0; background: #b5424c; color: #fff; }
+.resume-editor button:focus-visible,
+.job-workspace button:focus-visible,
+.dashboard-dialog button:focus-visible { outline: 3px solid #cfc8ff; outline-offset: 2px; }
 .resume-list .resume-list-more {
   min-height: 64px;
   flex-direction: column;
@@ -1267,6 +1444,18 @@
   .resume-list li > em {
     margin-left: 50px;
   }
+  .resume-list li > .resume-row-actions { width: 100%; margin-left: 50px; flex-wrap: wrap; }
+  .editor-grid,
+  .editor-entry-grid,
+  .job-fields { grid-template-columns: 1fr; }
+  .editor-wide,
+  .job-description-field { grid-column: auto; }
+  .resume-editor-header,
+  .resume-editor form,
+  .job-intake { padding-left: 19px; padding-right: 19px; }
+  .editor-actions { margin-left: -19px; margin-right: -19px; padding-left: 19px; padding-right: 19px; }
+  .job-workspace { grid-template-columns: 1fr; }
+  .job-intake footer { align-items: stretch; flex-direction: column; gap: 9px; }
   .application-item {
     grid-template-columns: 35px 1fr 60px;
   }

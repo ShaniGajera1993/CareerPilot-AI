@@ -5,7 +5,13 @@
   color: #17202f;
   background: #f6f7fb;
   font-synthesis: none;
+  scrollbar-color: #aaa5cf #f1f0f6;
+  scrollbar-width: thin;
 }
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: #f1f0f6; }
+*::-webkit-scrollbar-thumb { border: 2px solid #f1f0f6; border-radius: 10px; background: #aaa5cf; }
+*::-webkit-scrollbar-thumb:hover { background: #8179b4; }
 * {
   box-sizing: border-box;
 }
@@ -21,4 +27,8 @@ textarea {
 }
 button {
   cursor: pointer;
+}
+::selection { background: #dcd7ff; color: #201a55; }
+@media (forced-colors: active) {
+  :root { scrollbar-color: auto; }
 }

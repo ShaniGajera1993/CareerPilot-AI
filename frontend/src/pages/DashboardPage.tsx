@@ -4,12 +4,15 @@ import { DashboardHeader } from "../components/dashboard/DashboardHeader";
 import { DashboardSidebar } from "../components/dashboard/DashboardSidebar";
 import { OverviewCards } from "../components/dashboard/OverviewCards";
 import { ResumeWorkspace } from "../components/resume/ResumeWorkspace";
+import { JobDescriptionWorkspace } from "../components/job/JobDescriptionWorkspace";
 import { useAuth } from "../context/auth";
 import "../components/dashboard/dashboard.css";
 
 export function DashboardPage() {
   const [menu, setMenu] = useState(false);
   const [active, setActive] = useState("Overview");
+  const [resumeDirty, setResumeDirty] = useState(false);
+  const [jobDirty, setJobDirty] = useState(false);
   const { user } = useAuth();
   const firstName = user?.name.split(" ")[0] || "there";
 
@@ -22,13 +25,27 @@ export function DashboardPage() {
     };
   }, [active]);
 
+  const hasUnsavedChanges = resumeDirty || jobDirty;
+
+  useEffect(() => {
+    if (!hasUnsavedChanges) return;
+    const warnBeforeUnload = (event: BeforeUnloadEvent) => { event.preventDefault(); event.returnValue = ""; };
+    window.addEventListener("beforeunload", warnBeforeUnload);
+    return () => window.removeEventListener("beforeunload", warnBeforeUnload);
+  }, [hasUnsavedChanges]);
+
+  function selectSection(section: string) {
+    if (section === active) return;
+    setActive(section);
+  }
+
   return (
     <div className="dashboard-shell">
       <DashboardSidebar
         open={menu}
         onClose={() => setMenu(false)}
         active={active}
-        onSelect={setActive}
+        onSelect={selectSection}
       />
       <main className="dashboard-main">
         <DashboardHeader onMenu={() => setMenu(true)} />
@@ -49,6 +66,11 @@ export function DashboardPage() {
                     Keep your strongest career story ready for every opportunity.
                   </p>
                 </>
+              ) : active === "Job Matcher" ? (
+                <>
+                  <h1>Target roles</h1>
+                  <p>Save the job descriptions you want to compare with your resume.</p>
+                </>
               ) : (
                 <>
                   <span>CAREERPILOT WORKSPACE</span>
@@ -58,7 +80,7 @@ export function DashboardPage() {
               )}
             </div>
             {active === "Overview" && (
-              <button type="button" onClick={() => setActive("My Resume")}>
+              <button type="button" onClick={() => selectSection("My Resume")}>
                 <Plus /> Upload new resume
               </button>
             )}
@@ -67,14 +89,17 @@ export function DashboardPage() {
             <OverviewCards />
           </div>
           <div hidden={active !== "My Resume"}>
-            <ResumeWorkspace />
+            <ResumeWorkspace onDirtyChange={setResumeDirty} />
           </div>
-          {active !== "Overview" && active !== "My Resume" && (
+          <div hidden={active !== "Job Matcher"}>
+            <JobDescriptionWorkspace onDirtyChange={setJobDirty} />
+          </div>
+          {active !== "Overview" && active !== "My Resume" && active !== "Job Matcher" && (
             <section className="workspace-placeholder">
               <CalendarDays />
               <h2>{active}</h2>
               <p>This workspace is ready to connect to your Laravel API.</p>
-              <button onClick={() => setActive("Overview")}>
+              <button onClick={() => selectSection("Overview")}>
                 Return to overview
               </button>
             </section>

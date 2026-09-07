@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['original_name', 'disk', 'path', 'mime_type', 'extension', 'size_bytes', 'status'])]
+#[Fillable(['original_name', 'disk', 'path', 'mime_type', 'extension', 'size_bytes', 'status', 'parsed_content', 'parsed_at'])]
 class Resume extends Model
 {
     /** @use HasFactory<ResumeFactory> */
@@ -30,6 +30,8 @@ class Resume extends Model
     protected function casts(): array
     {
         return [
+            'parsed_at' => 'datetime',
+            'parsed_content' => 'array',
             'size_bytes' => 'integer',
         ];
     }

@@ -28,6 +28,14 @@ class User extends Authenticatable
     }
 
     /**
+     * @return HasMany<JobDescription, $this>
+     */
+    public function jobDescriptions(): HasMany
+    {
+        return $this->hasMany(JobDescription::class);
+    }
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
