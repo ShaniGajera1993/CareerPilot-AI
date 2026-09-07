@@ -7,6 +7,7 @@ This contract records the interaction owners used across the authenticated works
 | Capability | Canonical owner | Source of truth | Allowed variants | Verification |
 |---|---|---|---|---|
 | Select/Listbox | Native HTML select | This contract | Native single-select | Keyboard and browser smoke test |
+| Date | Native HTML date and datetime-local inputs | This contract | Native date and date-time | Keyboard and browser smoke test |
 | Form | Feature form plus shared API error normalizer | Frontend feature component and `frontend/src/services/api.ts` | Create and edit | Validation tests and browser flow |
 | Scrollbar | Global application stylesheet | `DESIGN.md` and `frontend/src/index.css` | Browser default within bounded panels | Responsive browser inspection |
 | Toast | Feature status or alert live region | Feature component | Success, information, and error | Accessibility inspection |

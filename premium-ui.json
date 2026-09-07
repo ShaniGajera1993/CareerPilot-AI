@@ -3,6 +3,7 @@
   "sourceRoots": ["frontend/src"],
   "locale": "en-US",
   "ownership": {
-    "Select/Listbox": "native"
+    "Select/Listbox": "native",
+    "Date": "native"
   }
 }

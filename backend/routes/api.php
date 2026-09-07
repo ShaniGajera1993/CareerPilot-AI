@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\V1\AnalyticsController;
+use App\Http\Controllers\Api\V1\ApplicationController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CoverLetterController;
+use App\Http\Controllers\Api\V1\InterviewController;
 use App\Http\Controllers\Api\V1\JobDescriptionController;
 use App\Http\Controllers\Api\V1\ResumeAnalysisController;
 use App\Http\Controllers\Api\V1\ResumeController;
@@ -57,4 +60,9 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function (): void {
     Route::post('/cover-letters', [CoverLetterController::class, 'store'])
         ->middleware('throttle:3,1')
         ->name('api.v1.cover-letters.store');
+    Route::apiResource('applications', ApplicationController::class)->except('show');
+    Route::get('/interviews', [InterviewController::class, 'index'])->name('api.v1.interviews.index');
+    Route::post('/interviews', [InterviewController::class, 'store'])->middleware('throttle:3,1')->name('api.v1.interviews.store');
+    Route::post('/interviews/{interview}/evaluate', [InterviewController::class, 'evaluate'])->middleware('throttle:3,1')->name('api.v1.interviews.evaluate');
+    Route::get('/analytics', AnalyticsController::class)->name('api.v1.analytics');
 });

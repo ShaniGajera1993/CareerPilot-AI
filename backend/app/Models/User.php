@@ -47,6 +47,18 @@ class User extends Authenticatable
         return $this->hasMany(CoverLetter::class);
     }
 
+    /** @return HasMany<Application, $this> */
+    public function applications(): HasMany
+    {
+        return $this->hasMany(Application::class);
+    }
+
+    /** @return HasMany<Interview, $this> */
+    public function interviews(): HasMany
+    {
+        return $this->hasMany(Interview::class);
+    }
+
     /**
      * Get the attributes that should be cast.
      *

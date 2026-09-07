@@ -6,6 +6,9 @@ import { OverviewCards } from "../components/dashboard/OverviewCards";
 import { ResumeWorkspace } from "../components/resume/ResumeWorkspace";
 import { JobDescriptionWorkspace } from "../components/job/JobDescriptionWorkspace";
 import { CareerAnalysisWorkspace } from "../components/analysis/CareerAnalysisWorkspace";
+import { ApplicationTracker } from "../components/applications/ApplicationTracker";
+import { InterviewWorkspace } from "../components/interviews/InterviewWorkspace";
+import { AnalyticsWorkspace } from "../components/analytics/AnalyticsWorkspace";
 import { useAuth } from "../context/auth";
 import "../components/dashboard/dashboard.css";
 
@@ -14,6 +17,8 @@ export function DashboardPage() {
   const [active, setActive] = useState("Overview");
   const [resumeDirty, setResumeDirty] = useState(false);
   const [jobDirty, setJobDirty] = useState(false);
+  const [applicationDirty, setApplicationDirty] = useState(false);
+  const [interviewDirty, setInterviewDirty] = useState(false);
   const { user } = useAuth();
   const firstName = user?.name.split(" ")[0] || "there";
 
@@ -26,7 +31,7 @@ export function DashboardPage() {
     };
   }, [active]);
 
-  const hasUnsavedChanges = resumeDirty || jobDirty;
+  const hasUnsavedChanges = resumeDirty || jobDirty || applicationDirty || interviewDirty;
 
   useEffect(() => {
     if (!hasUnsavedChanges) return;
@@ -78,6 +83,12 @@ export function DashboardPage() {
                   <h1>AI toolkit</h1>
                   <p>Measure the match, strengthen your evidence, and draft the introduction.</p>
                 </>
+              ) : active === "Applications" ? (
+                <><span>OPPORTUNITY PIPELINE</span><h1>Job tracker</h1><p>Keep every application, next step, and interview date in one place.</p></>
+              ) : active === "Interview Prep" ? (
+                <><span>LOCAL PRACTICE STUDIO</span><h1>Interview preparation</h1><p>Practice role-specific questions and improve each answer with private AI feedback.</p></>
+              ) : active === "Analytics" ? (
+                <><span>CAREER SIGNALS</span><h1>Progress analytics</h1><p>See how resume evidence, interview practice, and applications move together.</p></>
               ) : (
                 <>
                   <span>CAREERPILOT WORKSPACE</span>
@@ -92,19 +103,14 @@ export function DashboardPage() {
               </button>
             )}
           </section>
-          <div hidden={active !== "Overview"}>
-            <OverviewCards onNavigate={selectSection} />
-          </div>
-          <div hidden={active !== "My Resume"}>
-            <ResumeWorkspace onDirtyChange={setResumeDirty} />
-          </div>
-          <div hidden={active !== "Job Matcher"}>
-            <JobDescriptionWorkspace onDirtyChange={setJobDirty} />
-          </div>
-          <div hidden={active !== "AI Toolkit"}>
-            <CareerAnalysisWorkspace />
-          </div>
-          {active !== "Overview" && active !== "My Resume" && active !== "Job Matcher" && active !== "AI Toolkit" && (
+          {active === "Overview" && <OverviewCards onNavigate={selectSection} />}
+          {active === "My Resume" && <ResumeWorkspace onDirtyChange={setResumeDirty} />}
+          {active === "Job Matcher" && <JobDescriptionWorkspace onDirtyChange={setJobDirty} />}
+          {active === "AI Toolkit" && <CareerAnalysisWorkspace />}
+          {active === "Applications" && <ApplicationTracker onDirtyChange={setApplicationDirty} />}
+          {active === "Interview Prep" && <InterviewWorkspace onDirtyChange={setInterviewDirty} />}
+          {active === "Analytics" && <AnalyticsWorkspace />}
+          {active !== "Overview" && active !== "My Resume" && active !== "Job Matcher" && active !== "AI Toolkit" && active !== "Applications" && active !== "Interview Prep" && active !== "Analytics" && (
             <section className="workspace-placeholder">
               <CalendarDays />
               <h2>{active}</h2>
