@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ResumeResource;
-use App\Services\OpenAIResumeParser;
+use App\Services\OllamaResumeParser;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,15 +12,9 @@ use Throwable;
 
 class ResumeParsingController extends Controller
 {
-    public function __invoke(Request $request, int $resume, OpenAIResumeParser $parser): JsonResponse
+    public function __invoke(Request $request, int $resume, OllamaResumeParser $parser): JsonResponse
     {
         $ownedResume = $request->user()->resumes()->findOrFail($resume);
-
-        if (! filled(config('services.openai.key'))) {
-            return response()->json([
-                'message' => 'Resume parsing is not configured. Add an OpenAI API key and try again.',
-            ], Response::HTTP_SERVICE_UNAVAILABLE);
-        }
 
         $ownedResume->update(['status' => 'parsing']);
 

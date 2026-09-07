@@ -2,10 +2,10 @@
 
 use App\Models\Resume;
 use App\Models\User;
+use App\Services\ResumeTextExtractor;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Storage;
 
 uses(LazilyRefreshDatabase::class);
 
@@ -34,26 +34,24 @@ function parsedResumeProfile(): array
     ];
 }
 
-it('parses an owned resume and removes the temporary OpenAI file', function () {
-    fakeResumeStorage();
-    config()->set('services.openai.key', 'test-key');
-    config()->set('services.openai.model', 'gpt-5.4-mini');
+it('parses an owned resume with the local Ollama service', function () {
+    config()->set('services.ollama.url', 'http://127.0.0.1:11434');
+    config()->set('services.ollama.model', 'qwen3:4b');
     $user = User::factory()->create();
     $resume = Resume::factory()->for($user)->create();
-    Storage::disk('local')->put($resume->path, "%PDF-1.4\nresume");
+    $extractor = mock(ResumeTextExtractor::class);
+    $extractor->shouldReceive('extract')
+        ->once()
+        ->withArgs(fn (Resume $candidate): bool => $candidate->is($resume))
+        ->andReturn('Ada Lovelace is a mathematician and technical writer in London.');
+    app()->instance(ResumeTextExtractor::class, $extractor);
 
     Http::fake([
-        'api.openai.com/v1/files' => Http::response(['id' => 'file_resume_123']),
-        'api.openai.com/v1/responses' => Http::response([
-            'output' => [[
-                'type' => 'message',
-                'content' => [[
-                    'type' => 'output_text',
-                    'text' => json_encode(parsedResumeProfile(), JSON_THROW_ON_ERROR),
-                ]],
-            ]],
+        '127.0.0.1:11434/api/generate' => Http::response([
+            'model' => 'qwen3:4b',
+            'done' => true,
+            'response' => json_encode(parsedResumeProfile(), JSON_THROW_ON_ERROR),
         ]),
-        'api.openai.com/v1/files/*' => Http::response(['deleted' => true]),
     ]);
 
     $this->actingAs($user, 'sanctum')
@@ -68,37 +66,24 @@ it('parses an owned resume and removes the temporary OpenAI file', function () {
         ->parsed_at->not->toBeNull();
 
     Http::assertSent(fn (Request $request): bool => $request->method() === 'POST'
-        && $request->url() === 'https://api.openai.com/v1/responses'
-        && $request['model'] === 'gpt-5.4-mini'
-        && $request['input'][0]['content'][0]['file_id'] === 'file_resume_123'
-        && $request['text']['format']['type'] === 'json_schema');
-    Http::assertSent(fn (Request $request): bool => $request->method() === 'DELETE'
-        && $request->url() === 'https://api.openai.com/v1/files/file_resume_123');
+        && $request->url() === 'http://127.0.0.1:11434/api/generate'
+        && $request['model'] === 'qwen3:4b'
+        && $request['stream'] === false
+        && $request['options']['temperature'] === 0
+        && $request['format']['type'] === 'object'
+        && str_contains($request['prompt'], 'Ada Lovelace'));
 });
 
-it('requires parser configuration without changing resume state', function () {
-    config()->set('services.openai.key', null);
+it('marks a resume for retry when Ollama is unavailable', function () {
+    config()->set('services.ollama.url', 'http://127.0.0.1:11434');
     $user = User::factory()->create();
     $resume = Resume::factory()->for($user)->create();
-
-    $this->actingAs($user, 'sanctum')
-        ->postJson("/api/v1/resumes/{$resume->id}/parse")
-        ->assertServiceUnavailable();
-
-    expect($resume->refresh()->status)->toBe('uploaded');
-});
-
-it('marks a resume for retry when parsing fails', function () {
-    fakeResumeStorage();
-    config()->set('services.openai.key', 'test-key');
-    $user = User::factory()->create();
-    $resume = Resume::factory()->for($user)->create();
-    Storage::disk('local')->put($resume->path, "%PDF-1.4\nresume");
+    $extractor = mock(ResumeTextExtractor::class);
+    $extractor->shouldReceive('extract')->once()->andReturn('A readable resume with enough text for parsing.');
+    app()->instance(ResumeTextExtractor::class, $extractor);
 
     Http::fake([
-        'api.openai.com/v1/files' => Http::response(['id' => 'file_resume_failed']),
-        'api.openai.com/v1/responses' => Http::response(['error' => ['message' => 'Unavailable']], 503),
-        'api.openai.com/v1/files/*' => Http::response(['deleted' => true]),
+        '127.0.0.1:11434/api/generate' => Http::response(['error' => 'Unavailable'], 503),
     ]);
 
     $this->actingAs($user, 'sanctum')
@@ -106,12 +91,9 @@ it('marks a resume for retry when parsing fails', function () {
         ->assertStatus(502);
 
     expect($resume->refresh()->status)->toBe('parse_failed');
-    Http::assertSent(fn (Request $request): bool => $request->method() === 'DELETE'
-        && $request->url() === 'https://api.openai.com/v1/files/file_resume_failed');
 });
 
 it('does not parse another users resume', function () {
-    config()->set('services.openai.key', 'test-key');
     $user = User::factory()->create();
     $resume = Resume::factory()->create();
 

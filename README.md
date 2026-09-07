@@ -108,7 +108,7 @@ Ask questions such as:
                       │
                  Vector Database
                       │
-                   OpenAI API
+              Local Ollama API
 ```
 
 ---
@@ -150,8 +150,8 @@ Ask questions such as:
 
 ## AI
 
-- OpenAI GPT
-- OpenAI Embeddings
+- Ollama (local models)
+- Local embeddings
 - Retrieval-Augmented Generation (RAG)
 - Vector Search
 - Prompt Engineering
