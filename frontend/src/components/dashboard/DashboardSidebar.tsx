@@ -1,4 +1,5 @@
 import {
+  BarChart3,
   BookOpen,
   BriefcaseBusiness,
   FileSearch,
@@ -18,6 +19,7 @@ const items = [
   { label: "AI Toolkit", icon: FileSearch },
   { label: "Applications", icon: BriefcaseBusiness },
   { label: "Interview Prep", icon: MessageSquareText },
+  { label: "Analytics", icon: BarChart3 },
   { label: "Learning Path", icon: BookOpen },
 ];
 
@@ -64,7 +66,6 @@ export function DashboardSidebar({
             >
               <Icon />
               {label}
-              {label === "Applications" && <i>8</i>}
             </button>
           ))}
         </nav>

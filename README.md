@@ -365,9 +365,9 @@ DELETE /api/applications/{id}
 - [x] Cover Letter Generator
 
 ## Phase 4
-- [ ] Interview Preparation
-- [ ] Job Tracker
-- [ ] Analytics Dashboard
+- [x] Interview Preparation
+- [x] Job Tracker
+- [x] Analytics Dashboard
 
 ## Phase 5
 - [ ] RAG Chat
