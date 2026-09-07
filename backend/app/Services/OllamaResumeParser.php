@@ -26,6 +26,7 @@ class OllamaResumeParser
             ->post("{$baseUrl}/api/generate", [
                 'model' => config('services.ollama.model'),
                 'stream' => false,
+                'think' => false,
                 'format' => $schema,
                 'options' => [
                     'temperature' => 0,

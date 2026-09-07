@@ -69,6 +69,7 @@ it('parses an owned resume with the local Ollama service', function () {
         && $request->url() === 'http://127.0.0.1:11434/api/generate'
         && $request['model'] === 'qwen3:4b'
         && $request['stream'] === false
+        && $request['think'] === false
         && $request['options']['temperature'] === 0
         && $request['format']['type'] === 'object'
         && str_contains($request['prompt'], 'Ada Lovelace'));
